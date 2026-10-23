@@ -61,10 +61,21 @@ both sides get one private review link each
 
 ## Run your own instance
 
+The repository is split for independent hosting:
+
+```
+frontend/   the dependency-free web UI (static — Vercel-ready)
+backend/    the Express API, workers, tests, and scripts (Render-ready)
+```
+
+In **single-app mode** the backend also serves the frontend (development,
+tests, and self-hosting share one process and origin):
+
 ```sh
+cd backend
 npm install
 cp .env.example .env   # then fill in MONGODB_URI, GEMINI_API_KEY, and EMAIL_* (optional)
-npm run dev            # or: npm start
+npm run dev            # or: npm start — then open http://localhost:5000
 ```
 
 Requires Node.js >= 20. Configuration is validated at startup; the server
@@ -73,19 +84,40 @@ missing. Email stays disabled until `EMAIL_*` values exist — matching,
 analysis, and the whole frontend work without it, and notifications are
 recorded `disabled` rather than pretended.
 
-Deployment notes: run `npm start` (not the watcher). Behind exactly one
-reverse proxy (nginx, Render, Railway, …) set `TRUST_PROXY=1` so per-IP
-rate limits count real visitors; leave it unset when the Node process is
-exposed directly so the spoofable `X-Forwarded-For` header is never trusted.
-The health endpoint is `/api/v1/health` (`ok` with a connected database,
-`degraded`/503 otherwise) and is deliberately mounted before rate limiting.
-Single-instance MVP: the in-memory rate-limit store and the two in-process
-workers (analysis, email delivery) are suitable for one node; horizontally
-scaled deployments need a shared job store (e.g. Redis) first.
+### Split deployment: Vercel + Render
+
+Deploy **`backend/`** to Render (or any long-running host — a "Web Service",
+not serverless: two in-process workers and an in-memory rate-limit store
+need a persistent process):
+
+1. Build command `npm ci`, start command `npm start`.
+2. Environment: `MONGODB_URI`, `GEMINI_API_KEY`, `GEMINI_MODEL`,
+   `APP_BASE_URL` = the **frontend** URL users open, `APP_CORS_ORIGINS` =
+   that same frontend origin (the API is then called cross-origin),
+   optional `EMAIL_*`, and `TRUST_PROXY=1` (Render terminates a proxy).
+
+Deploy **`frontend/`** to Vercel (static site, "Other" framework preset,
+root directory `frontend`):
+
+1. No build step and no secrets — everything is plain files.
+2. Edit **one marked line in `frontend/vercel.json`**: replace
+   `https://YOUR-BACKEND-HOST.onrender.com` in the CSP's `connect-src`
+   with your Render backend URL (pages still ship `no-store` and the
+   strict Self-only policy).
+3. Optional but cleaner: in `frontend/js/config.js` set
+   `window.RECLAIM_API_BASE` to the backend origin; empty keeps requests
+   same-origin, which is the single-app mode.
+
+Private links in emails point wherever `APP_BASE_URL` (the frontend) says,
+while browsers talk to the API at the backend's CORS-allowed origin.
+
+Health endpoint: `/api/v1/health` (`ok` with a connected database,
+`degraded`/503 otherwise), deliberately mounted before rate limiting.
 
 ## The pages
 
-Served by the same Express app — open the server root in a browser:
+Served by the Express app (single-app mode), or as the static `frontend/`
+directory on its own host with `vercel.json` mapped to the same URLs:
 
 | Page | Purpose |
 |---|---|
@@ -102,6 +134,7 @@ Suggested-match emails deep-link into `/match/<token>`.
 ## Try the guarantees
 
 ```sh
+cd backend
 npm test        # 99 backend tests (in-memory MongoDB, no external services)
 npm run e2e     # full browser journey via Playwright (downloads Chromium on first run)
 ```
@@ -114,7 +147,7 @@ at 320/375/640/641/768/1024/1440/1920/2560px (overflow, layout, console and
 request errors), both color schemes with manual persistence, reduced motion,
 and a keyboard-only reporting flow.
 
-| Command | Purpose |
+| Command (from `backend/`) | Purpose |
 |---|---|
 | `npm run dev` | Run with watch mode |
 | `npm start` | Run server |

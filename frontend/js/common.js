@@ -30,7 +30,10 @@
     label: 'JPEG, PNG, or WEBP, up to 5 MB',
   });
 
-  const API_BASE = '/api/v1';
+  /* Split-stack hosting: js/config.js may point the API at another origin
+     (frontend on Vercel, API on Render). Empty keeps this origin — the
+     single-app mode the backend serves by default. */
+  const API_BASE = `${window.RECLAIM_API_BASE || ''}/api/v1`;
 
   /* ---- Theme: single icon toggle (light / dark) ----------------------------
      No visible "system" state: a saved choice is applied as-is; with no

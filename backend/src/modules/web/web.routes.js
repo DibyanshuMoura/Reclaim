@@ -9,12 +9,17 @@
  * into the served markup — client JS reads it from the location bar — and
  * all HTML responses carry no-store plus a Self-only CSP, so private links
  * are not cached by intermediaries and user text is render-safe by policy.
+ *
+ * In a split deployment the frontend ships from its own static host while
+ * this app still serves `../frontend` by default (development, tests, and
+ * single-app hosting share one process and origin).
  */
 const path = require('path');
 const express = require('express');
 const { Router } = express;
 
-const PUBLIC_DIR = path.join(__dirname, '..', '..', '..', 'public');
+// Repo layout: backend/src/modules/web → backend/src → backend → repo root.
+const PUBLIC_DIR = path.join(__dirname, '..', '..', '..', '..', 'frontend');
 
 // No inline handlers ship in the frontend, so a strict Self-only policy is
 // possible. `img-src data:` covers the inline SVG favicon.

@@ -1,0 +1,71 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/report/:token", "destination": "/report.html" },
+    { "source": "/match/:token", "destination": "/match.html" }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/lost",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/found",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/report/:token",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/match/:token",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "Referrer-Policy", "value": "no-referrer" }
+      ]
+    },
+    {
+      "source": "/fonts/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, immutable" }]
+    }
+  ]
+}
