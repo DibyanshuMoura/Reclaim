@@ -1,8 +1,8 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/report/:token", "destination": "/report.html" },
-    { "source": "/match/:token", "destination": "/match.html" }
+    { "source": "/report/:token", "destination": "/report" },
+    { "source": "/match/:token", "destination": "/match" }
   ],
   "headers": [
     {
