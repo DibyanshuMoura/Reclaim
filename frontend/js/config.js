@@ -10,4 +10,4 @@
  * …and allow the same origin in the CSP's `connect-src` inside
  * vercel.json. No secrets belong in this file: it ships to browsers.
  */
-window.RECLAIM_API_BASE = '';
+window.RECLAIM_API_BASE = 'https://reclaim-up1s.onrender.com';

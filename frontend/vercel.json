@@ -11,7 +11,7 @@
         { "key": "Cache-Control", "value": "no-store" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://reclaim-up1s.onrender.com; form-action 'self'"
         }
       ]
     },
@@ -21,7 +21,7 @@
         { "key": "Cache-Control", "value": "no-store" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://reclaim-up1s.onrender.com; form-action 'self'"
         }
       ]
     },
@@ -31,7 +31,7 @@
         { "key": "Cache-Control", "value": "no-store" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://reclaim-up1s.onrender.com; form-action 'self'"
         }
       ]
     },
@@ -41,7 +41,7 @@
         { "key": "Cache-Control", "value": "no-store" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://reclaim-up1s.onrender.com; form-action 'self'"
         }
       ]
     },
@@ -51,7 +51,7 @@
         { "key": "Cache-Control", "value": "no-store" },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://YOUR-BACKEND-HOST.onrender.com; form-action 'self'"
+          "value": "default-src 'self'; img-src 'self' data: blob:; style-src 'self'; script-src 'self'; connect-src 'self' https://reclaim-up1s.onrender.com; form-action 'self'"
         }
       ]
     },
