@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reclaim — Get back what's yours</title>
+  <meta name="description" content="Report a lost item or a found item. No accounts: private links only.">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23141414'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='%23ffffff' font-family='monospace'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/common.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">R</span><span class="brand__name">Reclaim</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link" data-nav="lost" href="/lost">Lost an item</a>
+        <a class="nav-link" data-nav="found" href="/found">Found an item</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme" title="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="dark"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="light"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="shell">
+
+    <main id="main">
+      <section class="hero">
+        <div>
+          <span class="kicker">Lost &amp; found for real places</span>
+          <h1 class="hero__headline">Get back what's <span class="hero-hit">yours.</span><span class="hero-caret" aria-hidden="true"></span></h1>
+          <p class="lead">
+            Reclaim connects people who lost something with the people who found it —
+            at concerts, malls, campuses, and events. No accounts, no public listings.
+            Two reports, one photo, and an honest match you confirm yourself.
+          </p>
+          <a class="anchor-link" href="#how">How it works ↓</a>
+        </div>
+      </section>
+
+      <div class="facts" aria-label="How Reclaim treats your data">
+        <div>
+          <strong>No accounts</strong>
+          <span>Anonymous reports. Access through private one-time links only.</span>
+        </div>
+        <div>
+          <strong>Photos are deleted</strong>
+          <span>Images are analyzed, then removed. Only extracted attributes are kept.</span>
+        </div>
+        <div>
+          <strong>Double confirmation</strong>
+          <span>Contact details are exchanged only after both sides confirm a match.</span>
+        </div>
+      </div>
+
+      <section class="band" id="how" aria-labelledby="how-title">
+        <span class="kicker">How it works</span>
+        <h2 id="how-title">Three steps, all private by default</h2>
+        <div class="steps">
+          <section class="step">
+            <span class="step__num" aria-hidden="true">1</span>
+            <h3>Report</h3>
+            <p>
+              Lost and found reports are anonymous. Each report gets a private,
+              one-time link — save it, it is your only way back.
+            </p>
+          </section>
+          <section class="step">
+            <span class="step__num" aria-hidden="true">2</span>
+            <h3>Match</h3>
+            <p>
+              The system compares your report against the other side using item
+              type, colors, place, and time. Strong pairs are notified by email.
+            </p>
+          </section>
+          <section class="step">
+            <span class="step__num" aria-hidden="true">3</span>
+            <h3>Confirm</h3>
+            <p>
+              Both parties review the match privately. Contact details are shared
+              only after both confirm — or either side can decline.
+            </p>
+          </section>
+        </div>
+      </section>
+
+      <section class="band" aria-labelledby="why-title">
+        <span class="kicker">Under the hood</span>
+        <h2 id="why-title">Built to be honest, not magical</h2>
+        <div class="spec">
+          <div class="spec__item">
+            <h3>AI with visible work</h3>
+            <p>
+              Photo attributes are extracted with computer vision and displayed
+              to you exactly as they were read — including what the AI was
+              unsure about. They are signals, never proof.
+            </p>
+          </div>
+          <div class="spec__item">
+            <h3>Explainable matching</h3>
+            <p>
+              Every potential match shows the factors behind its score: which
+              details agreed, which conflicted, and by how much. No black box.
+            </p>
+          </div>
+          <div class="spec__item">
+            <h3>Privacy that is enforced</h3>
+            <p>
+              Free-text descriptions of the other party are never shown, tokens
+              grant access only to your own report, and email templates cannot
+              leak counterparty details.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <details class="disclosure">
+        <summary>What Reclaim stores — and what it never stores</summary>
+        <div class="disclosure__body">
+          <p>
+            Stored: report details you type, attributes extracted from the found
+            photo, match scores with their factors, and contact emails used only
+            for match notifications. Photos are deleted once attributes are saved.
+          </p>
+          <p>
+            Never stored or shown: the other party's free-text location details,
+            their photo, or their identity before mutual confirmation. Report
+            tokens are shown once and stored only as hashes.
+          </p>
+        </div>
+      </details>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <p>
+          Reclaim is a simple, privacy-conscious item-recovery service. If you
+          found something, one photo starts the process; if you lost something,
+          a short description is all it takes.
+        </p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/lost">Lost an item</a>
+          <a href="/found">Found an item</a>
+          <a href="/api/v1/health">Service status</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <span>Reclaim — Get back what's yours.</span>
+        <span>Anonymous by design · No accounts · Photos deleted after analysis</span>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

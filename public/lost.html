@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lost an item — Reclaim</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23141414'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='%23ffffff' font-family='monospace'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/common.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">R</span><span class="brand__name">Reclaim</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link" data-nav="lost" href="/lost" aria-current="page">Lost an item</a>
+        <a class="nav-link" data-nav="found" href="/found">Found an item</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme" title="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="dark"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="light"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="shell">
+
+    <main id="main">
+      <span class="kicker">Lost report</span>
+      <h1>Lost an item</h1>
+      <p class="lead">
+        Describe what you know — the basics are required, everything else
+        sharpens the match but is never mandatory.
+      </p>
+
+      <div id="error-summary" aria-live="polite"></div>
+
+      <section id="form-section">
+        <form id="lost-form" novalidate>
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="itemName">Item name</label>
+              <span class="field__req">Required</span>
+            </div>
+            <input type="text" id="itemName" name="itemName" maxlength="100" autocomplete="off"
+                   placeholder="e.g. black backpack">
+            <p class="field__hint">Keep it short: this is how the other side will see it named.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="description">Description</label>
+              <span class="field__req">Required</span>
+            </div>
+            <textarea id="description" name="description" maxlength="2000"
+                      placeholder="What does it look like? Markings, scratches, contents — anything the other side's photo may not show…"></textarea>
+            <p class="field__counter"><span id="description-count">0</span>/2000 · minimum 10 characters</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <span class="field__label">Colors</span>
+              <span class="field__opt">Optional</span>
+            </div>
+            <div class="row row--colors" data-color-group>
+              <input type="text" name="color-0" maxlength="30" aria-label="Color 1" placeholder="e.g. black">
+              <input type="text" name="color-1" maxlength="30" aria-label="Color 2" placeholder="another color">
+              <input type="text" name="color-2" maxlength="30" aria-label="Color 3" placeholder="another color">
+            </div>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="brand">Brand</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="text" id="brand" name="brand" maxlength="50" autocomplete="off">
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="venue">Venue</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="text" id="venue" name="venue" maxlength="120" autocomplete="off"
+                   placeholder="e.g. Central Library">
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="locationDescription">Where exactly?</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="text" id="locationDescription" name="locationDescription" maxlength="300" autocomplete="off"
+                   placeholder="e.g. second floor, by the study rooms">
+            <p class="field__hint">Kept private: never shown to the other party.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="incidentAt">When did you lose it?</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="datetime-local" id="incidentAt" name="incidentAt">
+            <p class="field__hint">Approximate is fine — used to judge time proximity.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="contactEmail">Contact email</label>
+              <span class="field__req">Required</span>
+            </div>
+            <input type="email" id="contactEmail" name="contactEmail" maxlength="254" autocomplete="email"
+                   placeholder="you@example.com">
+            <p class="field__hint">Only used to send match notifications — never shown to the other party until both sides confirm.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary" id="submit-button">Submit lost report</button>
+            <p class="small muted">Submitting creates an anonymous report and shows your private access token once.</p>
+          </div>
+        </form>
+      </section>
+
+      <section id="success-section" hidden>
+        <div id="success-banner"></div>
+        <div class="panel">
+          <span class="kicker">Save this now</span>
+          <h2>Your private access token</h2>
+          <p>
+            This token is the only way to open your report again. It is shown
+            <strong>exactly once</strong> — nobody, including us, can restore it later.
+          </p>
+          <div class="token-note">
+            <span class="token-note__mark" aria-hidden="true">!</span>
+            <small>Copy it or save the link before leaving this page. Losing the token means losing access to the report.</small>
+          </div>
+          <code class="token-box" id="token-code"></code>
+          <div class="row">
+            <button type="button" class="btn" data-copy="" id="copy-token">Copy token</button>
+            <a class="btn btn--primary" id="report-link" href="/">Open private report page</a>
+          </div>
+        </div>
+        <div class="panel panel--tight">
+          <h3>What happens next</h3>
+          <p class="small muted" id="success-next">
+            When a found-item report matches yours, both parties get an email
+            with a private match link. You each decide independently whether to
+            confirm — nothing, not even the other side's contact details, is
+            shared until you both confirm.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <p>No accounts — anonymous reporting. Your email is never published, and free-text location details are never shown to the other party.</p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Landing</a>
+          <a href="/found">Found an item?</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <span>Reclaim — Get back what's yours.</span>
+        <span>Anonymous by design · Private one-time links</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/js/lost.js" defer></script>
+</body>
+</html>

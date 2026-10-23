@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Potential match — Reclaim</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23141414'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='%23ffffff' font-family='monospace'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/common.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">R</span><span class="brand__name">Reclaim</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link" data-nav="lost" href="/lost">Lost an item</a>
+        <a class="nav-link" data-nav="found" href="/found">Found an item</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme" title="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="dark"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="light"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="shell">
+
+    <main id="main">
+      <span class="kicker">Private match view</span>
+      <h1>Potential match</h1>
+      <div id="error-summary" aria-live="polite"></div>
+
+      <section class="panel" id="match-panel" hidden>
+        <span class="kicker">Affinity estimate</span>
+        <div id="match-meter"></div>
+        <p class="small muted">
+          An estimate from comparing the two reports — <strong>not proof</strong>
+          that they belong together. Only a person can decide that.
+        </p>
+        <dl class="kv">
+          <div><dt>State</dt><dd id="match-state">—</dd></div>
+          <div><dt>Your role</dt><dd id="match-role">—</dd></div>
+        </dl>
+      </section>
+
+      <section class="panel" id="factors-panel" hidden>
+        <span class="kicker">Explainable comparison</span>
+        <h2>Why these reports seem related</h2>
+        <div id="factors-list"></div>
+        <p class="small muted">
+          Every factor compares a specific detail between the two reports.
+          This is the actual computation — nothing is hidden and nothing is
+          invented here.
+        </p>
+      </section>
+
+      <section class="panel" id="other-panel" hidden>
+        <span class="kicker">The other side</span>
+        <h2 id="other-title">The other report</h2>
+        <dl class="kv" id="other-list"></dl>
+        <p class="small muted">
+          Deliberately limited: free-text descriptions and location details of
+          the other party are never shown, so no contact information can leak
+          before mutual confirmation.
+        </p>
+      </section>
+
+      <section class="panel" id="own-panel" hidden>
+        <span class="kicker">Your side</span>
+        <h2 id="own-title">Your report</h2>
+        <dl class="kv" id="own-list"></dl>
+      </section>
+
+      <section class="panel" id="contact-panel" hidden>
+        <span class="kicker">Match confirmed by both parties</span>
+        <h2>Contact details revealed</h2>
+        <p>
+          Both parties confirmed this match, so contact details are shared.
+          Arrange the return directly; afterwards, close your report from
+          <strong>your private report link</strong> — the one you saved when
+          you created it.
+        </p>
+        <dl class="kv">
+          <div><dt>Other party's email</dt><dd><code id="contact-email">—</code></dd></div>
+        </dl>
+        <div class="row">
+          <button type="button" class="btn" data-copy="" id="contact-copy">Copy email</button>
+        </div>
+      </section>
+
+      <section class="panel" id="action-panel" hidden>
+        <span class="kicker">Your decision</span>
+        <h2>Is this report about the same item?</h2>
+        <p id="action-intro" class="muted">
+          Nothing is shared with the other party until BOTH sides confirm.
+          If the items clearly do not belong together, decline the match.
+        </p>
+        <div class="row" id="confirm-row">
+          <button type="button" class="btn btn--primary" id="confirm-arm">This is a match — confirm</button>
+          <button type="button" class="btn btn--danger" id="confirm-confirm" hidden>Confirm for real</button>
+          <button type="button" class="btn" id="confirm-cancel" hidden>Not now</button>
+        </div>
+        <div class="row" id="reject-row">
+          <button type="button" class="btn btn--danger" id="reject-arm">Decline the match</button>
+          <button type="button" class="btn" id="reject-confirm" hidden>Decline for real</button>
+          <button type="button" class="btn" id="reject-cancel" hidden>Back</button>
+        </div>
+        <div id="action-banner"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <p>
+          Private pages require your token in the address bar. This match view
+          shows only what you are entitled to see — nothing about the other
+          party's identity until you both confirm.
+        </p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Landing</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <span>Reclaim — Get back what's yours.</span>
+        <span>Token-protected page · Double-confirmation privacy</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/js/match.js" defer></script>
+</body>
+</html>

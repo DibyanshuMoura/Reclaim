@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Found an item — Reclaim</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23141414'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='%23ffffff' font-family='monospace'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/common.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">R</span><span class="brand__name">Reclaim</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link" data-nav="lost" href="/lost">Lost an item</a>
+        <a class="nav-link" data-nav="found" href="/found" aria-current="page">Found an item</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme" title="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="dark"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="light"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="shell">
+
+    <main id="main">
+      <span class="kicker">Found report</span>
+      <h1>Found an item</h1>
+      <p class="lead">
+        One photo does the work: the AI extracts what the item looks like.
+        You provide a contact email — and optionally, where and when.
+      </p>
+
+      <div id="error-summary" aria-live="polite"></div>
+
+      <section id="form-section">
+        <form id="found-form" novalidate>
+          <div class="field" data-image-fields>
+            <div class="field__row">
+              <label class="field__label" for="image">Photo of the item</label>
+              <span class="field__req">Required</span>
+            </div>
+            <input type="file" id="image" name="image"
+                   accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+            <p class="field__hint">
+              On phones you can use the camera directly. Accepted: JPEG, PNG,
+              or WEBP, up to 5 MB.
+            </p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="preview" id="preview" aria-live="polite">
+            <div class="preview__frame">
+              <img id="preview-image" src="" alt="Preview of the chosen photo">
+            </div>
+            <div class="preview__bar">
+              <span id="preview-meta"></span>
+              <button type="button" class="btn" data-remove-preview id="remove-preview">Remove photo</button>
+            </div>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="contactEmail">Contact email</label>
+              <span class="field__req">Required</span>
+            </div>
+            <input type="email" id="contactEmail" name="contactEmail" maxlength="254" autocomplete="email"
+                   placeholder="you@example.com">
+            <p class="field__hint">Used for match notifications — never shared before both sides confirm.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="venue">Venue</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="text" id="venue" name="venue" maxlength="120" autocomplete="off"
+                   placeholder="e.g. Central Library — a photo cannot establish this">
+            <p class="field__hint">Strongly improves matching: a photo alone cannot establish place or time.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="incidentAt">When did you find it?</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="datetime-local" id="incidentAt" name="incidentAt">
+            <p class="field__error"></p>
+          </div>
+
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="description">Anything a photo can't show</label>
+              <span class="field__opt">Optional</span>
+            </div>
+            <input type="text" id="description" name="description" maxlength="2000" autocomplete="off"
+                   placeholder="e.g. found near gate B, item was still switched on">
+            <p class="field__hint">Do not include contact details here — this text may be shown to the other party.</p>
+            <p class="field__error"></p>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn--primary" id="submit-button">Submit found report</button>
+            <p class="small muted">Submitting creates an anonymous report and shows your private access token once. The analysis continues even if you leave.</p>
+          </div>
+        </form>
+      </section>
+
+      <section id="progress-section" hidden>
+        <div class="panel">
+          <span class="kicker">Working</span>
+          <h2>Analyzing the photo</h2>
+          <p class="announce">
+            <span class="dot dot--live" aria-hidden="true"></span>
+            <span class="progress-line" id="progress-line">Submitting…</span>
+          </p>
+          <p class="small muted">
+            This usually takes a few seconds. You will see the extracted
+            attributes here — they are estimates from the photo, not proof of
+            anything. Your report is already safe: the analysis failing has no
+            effect on the report itself.
+          </p>
+        </div>
+      </section>
+
+      <section id="result-section" hidden>
+        <div id="result-banner"></div>
+        <div class="panel">
+          <span class="kicker">Save this now</span>
+          <h2>Your private access token</h2>
+          <p>
+            This token is the only way to open your report again. It is shown
+            <strong>exactly once</strong> — nobody, including us, can restore it later.
+          </p>
+          <div class="token-note">
+            <span class="token-note__mark" aria-hidden="true">!</span>
+            <small>Copy it or save the link before leaving this page. Losing the token means losing access to the report.</small>
+          </div>
+          <code class="token-box" id="token-code"></code>
+          <div class="row">
+            <button type="button" class="btn" data-copy="" id="copy-token">Copy token</button>
+            <a class="btn btn--primary" id="report-link" href="/">Open private report page</a>
+          </div>
+        </div>
+
+        <div class="panel" id="attributes-panel" hidden>
+          <span class="kicker">Analysis result</span>
+          <h2>What the AI saw in the photo</h2>
+          <dl class="kv" id="attributes-list"></dl>
+          <p class="small muted">
+            Estimates from the photo — matching uses them as signals, never as
+            proof of identity or ownership.
+          </p>
+        </div>
+
+        <div class="panel" id="action-panel" hidden>
+          <span class="kicker">Needs your attention</span>
+          <h2 id="action-title"></h2>
+          <p id="action-text"></p>
+          <div class="field">
+            <div class="field__row">
+              <label class="field__label" for="retry-image">Upload a different photo</label>
+              <span class="field__opt">Replaces current photo</span>
+            </div>
+            <input type="file" id="retry-image" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+            <p class="field__hint">Accepted: JPEG, PNG, or WEBP, up to 5 MB. The analysis restarts with the new photo.</p>
+            <p class="field__error"></p>
+          </div>
+          <div class="row">
+            <button type="button" class="btn btn--primary" id="retry-button">Upload and retry analysis</button>
+          </div>
+          <div id="retry-banner"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <p>
+          Photos are processed server-side for analysis and deleted once
+          attributes are saved. No accounts — anonymous reporting.
+        </p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Landing</a>
+          <a href="/lost">Lost an item?</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <span>Reclaim — Get back what's yours.</span>
+        <span>Anonymous by design · Photos deleted after analysis</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/js/found.js" defer></script>
+</body>
+</html>

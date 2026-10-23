@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your report — Reclaim</title>
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%23141414'/%3E%3Ctext x='8' y='12' font-size='10' text-anchor='middle' fill='%23ffffff' font-family='monospace'%3ER%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/common.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="shell site-header__inner">
+      <a class="brand" href="/"><span class="brand__mark" aria-hidden="true">R</span><span class="brand__name">Reclaim</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link" data-nav="lost" href="/lost" aria-current="page">Lost an item</a>
+        <a class="nav-link" data-nav="found" href="/found">Found an item</a>
+      </nav>
+      <div class="header-actions">
+        <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" aria-label="Switch to dark theme" title="Switch to dark theme">
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="dark"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" data-icon="light"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M18.5 5.5l-1.7 1.7M7.2 16.8l-1.7 1.7"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+  <div class="shell">
+
+    <main id="main">
+      <span class="kicker">Private report</span>
+      <h1>Your report</h1>
+      <p class="lead">
+        This page is yours alone: it opens only through your private token.
+        Statuses below reflect the live state of the report.
+      </p>
+      <div id="error-summary" aria-live="polite"></div>
+
+      <section class="panel" id="status-panel" hidden>
+        <span class="kicker">Status</span>
+        <dl class="kv">
+          <div><dt>Report</dt><dd id="status-report-type">—</dd></div>
+          <div><dt>Lifecycle</dt><dd id="status-lifecycle">—</dd></div>
+          <div><dt>Analysis</dt><dd id="status-analysis">—</dd></div>
+          <div><dt>Submitted</dt><dd id="status-created">—</dd></div>
+        </dl>
+        <p class="progress-line" id="poll-line" hidden></p>
+      </section>
+
+      <section class="panel" id="details-panel" hidden>
+        <span class="kicker">Your submission</span>
+        <h2>You reported</h2>
+        <dl class="kv" id="details-list"></dl>
+      </section>
+
+      <section class="panel" id="attributes-panel" hidden>
+        <span class="kicker">Analysis result</span>
+        <h2>What the AI saw in the photo</h2>
+        <dl class="kv" id="attributes-list"></dl>
+        <p class="small muted">
+          Estimates from the photo. Matching treats them as signals — never as
+          proof of identity or ownership.
+        </p>
+      </section>
+
+      <section class="panel" id="close-panel" hidden>
+        <span class="kicker">Lifecycle action</span>
+        <h2>Close this report</h2>
+        <p>
+          Close the report when your item is back with you — or when you no
+          longer want to be matched. Closed reports stop matching immediately.
+          This cannot be undone; create a new report if you change your mind.
+        </p>
+        <div class="row">
+          <button type="button" class="btn" id="close-arm">Close report</button>
+          <button type="button" class="btn btn--danger" id="close-confirm" hidden>Confirm: close this report</button>
+          <button type="button" class="btn" id="close-cancel" hidden>Keep it open</button>
+        </div>
+        <div id="close-banner"></div>
+      </section>
+
+      <section class="panel" id="retry-panel" hidden>
+        <span class="kicker">Needs your attention</span>
+        <h2>The analysis needs a new photo</h2>
+        <p>
+          The current photo could not be analyzed completely. Nothing was
+          invented to fill gaps, and the report — including your contact email
+          — is intact. Choose a different photo and retry.
+        </p>
+        <div class="field">
+          <div class="field__row">
+            <label class="field__label" for="retry-image">Upload a different photo</label>
+            <span class="field__opt">Replaces current photo</span>
+          </div>
+          <input type="file" id="retry-image" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp">
+          <p class="field__hint">Accepted: JPEG, PNG, or WEBP, up to 5 MB.</p>
+        </div>
+        <div class="row">
+          <button type="button" class="btn btn--primary" id="retry-button">Upload and retry analysis</button>
+        </div>
+        <div id="retry-banner"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-grid">
+        <p>
+          Private pages require your token in the address bar. Anyone without
+          it — including support staff — cannot open this report.
+        </p>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="/">Landing</a>
+        </nav>
+      </div>
+      <div class="footer-legal">
+        <span>Reclaim — Get back what's yours.</span>
+        <span>Token-protected page · Revocable by closing the report</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/js/report.js" defer></script>
+</body>
+</html>
